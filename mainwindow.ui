@@ -23,8 +23,20 @@
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menudd">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menudd"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
