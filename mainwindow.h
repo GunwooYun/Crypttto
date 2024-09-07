@@ -23,7 +23,13 @@ private slots:
     void on_actionExit_triggered();
     void on_actionAbout_triggered();
 
+    // void on_btn_blockCipher_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+private:
+
+
 };
 #endif // MAINWINDOW_H
