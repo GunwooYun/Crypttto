@@ -7,39 +7,47 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    /* 메뉴바 추가 */
+    /****************************************
+     * menu bar setting                     *
+     ***************************************/
+
+    /* 메뉴바에 help 추가 */
     QMenu *menuHelp = new QMenu();
     menuHelp->setTitle("&Help");
     menuHelp->setVisible(true);
     menuHelp->show();
 
-    /* 메뉴바의 액션(하위 메뉴) 추가 */
+    /* About(help 하위 메뉴) 추가 */
     QAction *actionAbout = new QAction();
     actionAbout->setText("&About");
     menuHelp->addAction(actionAbout);
+
+
+    /* 액션 About과 동작 함수 연결 */
+    connect(actionAbout, SIGNAL(triggered(bool)), this, SLOT(on_actionAbout_triggered()));
+
+    ui->menubar->addMenu(menuHelp);
 
     /****************************************
      * stack widget setting                 *
      ***************************************/
 
     /* 각 페이지를 변수에 저장 */
-    QWidget *page_blockCipher = ui->stackedWidget->widget(0);   // block cipher 페이지
-    QWidget *page_MAC = ui->stackedWidget->widget(1);           // MAC 페이지
+    page_home = ui->stackedWidget->widget(PAGE_HOME);                       /* home 페이지 */
+    page_blockCipher = ui->stackedWidget->widget(PAGE_BLOCK_CIPHER_INDEX);  /* block cipher 페이지 */
+    page_hash = ui->stackedWidget->widget(PAGE_HASH_INDEX);                 /* Hash 페이지 */
+    page_MAC = ui->stackedWidget->widget(PAGE_MAC_INDEX);                   /* MAC 페이지 */
 
-    /* block cipher 버튼 - block cipher 페이지 */
-    connect(ui->btn_blockCipher, &QPushButton::clicked, [this, page_blockCipher]() {
-        ui->stackedWidget->setCurrentWidget(page_blockCipher);  // 첫 번째 페이지로 전환
-    });
 
-    /* block cipher 버튼 - block cipher 페이지 */
-    connect(ui->btn_MAC, &QPushButton::clicked, [this, page_MAC]() {
-        ui->stackedWidget->setCurrentWidget(page_MAC);  // 첫 번째 페이지로 전환
-    });
+    /* 버튼 - 페이지 출력 함수 연결*/
+    connect(ui->btn_blockCipher, SIGNAL(clicked(bool)), this, SLOT(on_btn_blockCipher_clicked));
+    connect(ui->btn_hash, SIGNAL(clicked(bool)), this, SLOT(on_btn_hash_clicked()));
+    connect(ui->btn_MAC, SIGNAL(clicked(bool)), this, SLOT(on_btn_MAC_clicked()));
 
-    /* 위젯과 Slot(function)을 연결*/
-    connect(actionAbout, SIGNAL(triggered(bool)), this, SLOT(on_actionAbout_triggered()));
+    /* 홈페이지 설정 */
+    ui->stackedWidget->setCurrentWidget(page_home);
 
-    ui->menubar->addMenu(menuHelp);
+
 }
 
 MainWindow::~MainWindow()
@@ -49,7 +57,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionExit_triggered()
 {
-    // QMessageBox::information(this, "Menu bar test", "File-Exit menu");
     QCoreApplication::quit();
 }
 
@@ -58,8 +65,17 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox::information(this, "Menu bar test", "Help-About menu");
 }
 
-// void MainWindow::on_btn_blockCipher_clicked()
-// {
-//     ui->stackedWidget->setCurrentWidget(page_blockCipher);
-// }
+void MainWindow::on_btn_blockCipher_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(page_blockCipher);
+}
 
+void MainWindow::on_btn_MAC_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(page_MAC);
+}
+
+void MainWindow::on_btn_hash_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(page_hash);
+}
