@@ -5,6 +5,11 @@
 
 #include <QMessageBox>
 
+#include "pagehome.h"
+#include "pageBlockCipher.h"
+#include "pagehash.h"
+#include "pagemac.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -43,12 +48,11 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-
 private: /* Pages */
-    QWidget *page_home;
-    QWidget *page_blockCipher;
-    QWidget *page_MAC;
-    QWidget *page_hash;
+    PageHome *pageHome;
+    PageBlockCipher *pageBlockCipher;
+    PageHash *pageHash;
+    PageMAC *pageMAC;
 
 };
 #endif // MAINWINDOW_H

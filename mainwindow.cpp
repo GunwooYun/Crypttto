@@ -22,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
     actionAbout->setText("&About");
     menuHelp->addAction(actionAbout);
 
-
     /* 액션 About과 동작 함수 연결 */
     connect(actionAbout, SIGNAL(triggered(bool)), this, SLOT(on_actionAbout_triggered()));
 
@@ -32,12 +31,17 @@ MainWindow::MainWindow(QWidget *parent)
      * stack widget setting                 *
      ***************************************/
 
-    /* 각 페이지를 변수에 저장 */
-    page_home = ui->stackedWidget->widget(PAGE_HOME);                       /* home 페이지 */
-    page_blockCipher = ui->stackedWidget->widget(PAGE_BLOCK_CIPHER_INDEX);  /* block cipher 페이지 */
-    page_hash = ui->stackedWidget->widget(PAGE_HASH_INDEX);                 /* Hash 페이지 */
-    page_MAC = ui->stackedWidget->widget(PAGE_MAC_INDEX);                   /* MAC 페이지 */
+    /* Widget 인스턴스 생성 */
+    pageHome = new PageHome(this);
+    pageBlockCipher = new PageBlockCipher(this);
+    pageHash = new PageHash(this);
+    pageMAC = new PageMAC(this);
 
+    /* Stacked Widget에 page 인스턴스 추가 */
+    ui->stackedWidget->addWidget(pageHome);
+    ui->stackedWidget->addWidget(pageBlockCipher);
+    ui->stackedWidget->addWidget(pageHash);
+    ui->stackedWidget->addWidget(pageMAC);
 
     /* 버튼 - 페이지 출력 함수 연결*/
     connect(ui->btn_blockCipher, SIGNAL(clicked(bool)), this, SLOT(on_btn_blockCipher_clicked));
@@ -45,8 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btn_MAC, SIGNAL(clicked(bool)), this, SLOT(on_btn_MAC_clicked()));
 
     /* 홈페이지 설정 */
-    ui->stackedWidget->setCurrentWidget(page_home);
-
+    ui->stackedWidget->setCurrentWidget(pageHome);
 
 }
 
@@ -67,15 +70,16 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_btn_blockCipher_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(page_blockCipher);
+    ui->stackedWidget->setCurrentWidget(pageBlockCipher);
+
 }
 
 void MainWindow::on_btn_MAC_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(page_MAC);
+    ui->stackedWidget->setCurrentWidget(pageMAC);
 }
 
 void MainWindow::on_btn_hash_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(page_hash);
+    ui->stackedWidget->setCurrentWidget(pageHash);
 }
