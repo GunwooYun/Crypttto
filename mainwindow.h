@@ -16,14 +16,14 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
-enum ePageIndex
-{
-    PAGE_HOME = 0,
-    PAGE_BLOCK_CIPHER_INDEX,    // 1
-    PAGE_HASH_INDEX,            // 2
-    PAGE_MAC_INDEX              // 3
+// enum ePageIndex
+// {
+//     PAGE_HOME = 0,
+//     PAGE_BLOCK_CIPHER_INDEX,    // 1
+//     PAGE_HASH_INDEX,            // 2
+//     PAGE_MAC_INDEX              // 3
 
-};
+// };
 
 class MainWindow : public QMainWindow
 {
